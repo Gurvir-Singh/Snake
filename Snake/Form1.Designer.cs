@@ -1026,12 +1026,14 @@ namespace Snake
             Thread.Sleep(1000);
             KeyBuffer.Enqueue('u');
             playGame();
+
         }
         public void playGame()
         {
             
             Game game = new Game();
             game.PlayGame(this);
+            
         }
         public List<List<System.Windows.Forms.Panel>> panels = new List<List<System.Windows.Forms.Panel>>();
         

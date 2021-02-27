@@ -23,8 +23,8 @@ namespace Snake
 
             do
             {
-                applePosX = randGen.Next(9);
-                applePosX = randGen.Next(9);
+                applePosX = randGen.Next(12);
+                applePosY = randGen.Next(12);
             } while (playGrid.grid[applePosY][applePosX] != 'E');
             playGrid.updateGrid(applePosX, applePosY, '0');
 
@@ -43,59 +43,41 @@ namespace Snake
                     direction = f.KeyBuffer.Dequeue();
                 }
                 
-                //std::this_thread::sleep_for(std::chrono::milliseconds(100));
-                if (true)
-                {
+
+                    if (lastFramesDirection == 'u' && direction == 'd')
+                    {
+                        direction = lastFramesDirection;
+                    }
+                    else if (lastFramesDirection == 'd' && direction == 'u')
+                    {
+                        direction = lastFramesDirection;
+                    }
+                    else if (lastFramesDirection == 'l' && direction == 'r')
+                    {
+                        direction = lastFramesDirection;
+                    }
+                    else if (lastFramesDirection == 'r' && direction == 'l')
+                    {
+                        direction = lastFramesDirection;
+                    }
+
                     if (direction == 'u')
                     {
-                        if (lastFramesDirection != 'd')
-                        {
-                            snakePosY--;
-                            lastFramesDirection = direction;
-                        }
-                        else
-                        {
-                            direction = lastFramesDirection;
-                        }
+                        snakePosY--;
                     }
                     else if (direction == 'd')
                     {
-                        if (lastFramesDirection != 'u')
-                        {
-                            snakePosY++;
-                            lastFramesDirection = direction;
-                        }
-                        else
-                        {
-                            direction = lastFramesDirection;
-                        }
+                        snakePosY++;
                     }
                     else if (direction == 'r')
                     {
-                        if (lastFramesDirection != 'l')
-                        {
-                            snakePosX++;
-                            lastFramesDirection = direction;
-                        }
-                        else
-                        {
-                            direction = lastFramesDirection;
-                        }
+                        snakePosX++;
                     }
                     else if (direction == 'l')
                     {
-                        if (lastFramesDirection != 'r')
-                        {
-                            snakePosX--;
-                            lastFramesDirection = direction;
-                        }
-                        else
-                        {
-                            direction = lastFramesDirection;
-                        }
+                        snakePosX--;
                     }
-
-                    
+                    lastFramesDirection = direction;
                     if (playGrid.grid[snakePosY][snakePosX] == 'X' || playGrid.grid[snakePosY][snakePosX] == '#')
                     {
                         gameRunning = false;
@@ -106,8 +88,8 @@ namespace Snake
                         {
                             do
                             {
-                                applePosX = randGen.Next(9);
-                                applePosX = randGen.Next(9);
+                                applePosX = randGen.Next(11);
+                                applePosY = randGen.Next(11);
                             } while (playGrid.grid[applePosY][applePosX] != '.');
                             playGrid.updateGrid(applePosX, applePosY, '0');
                             snakeLength++;
@@ -120,7 +102,7 @@ namespace Snake
                         List<int> posWritingOver = new List<int>{ snakePosX, snakePosY, snakeLength };
                         positionsDrawnOver.Add(posWritingOver);
                     }
-                    if (positionsDrawnOver.Count() != 0)
+                    if (positionsDrawnOver.Count() != 0 && gameRunning)
                     {
                         foreach (List<int> arr in positionsDrawnOver)
                         {
@@ -136,14 +118,14 @@ namespace Snake
                             positionsDrawnOver.RemoveAt(0);
                         }
                     }
-                }
+                
                 //system("CLS");
                 //if (framesToPlay % 100000) {
                 //playGrid.printGrid();
                 //}
                 //std::this_thread::sleep_for(std::chrono::milliseconds(100));
                 playGrid.updateScreen(f.panels);
-                Thread.Sleep(300);
+                Thread.Sleep(200);
             }
             gameRunning = false;
         }

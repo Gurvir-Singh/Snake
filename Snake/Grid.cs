@@ -41,9 +41,13 @@ namespace Snake
                     {
                         screen[i-1][j-1].BackColor = System.Drawing.Color.Red;
                     }
-                    else if (grid[i][j] == 'O' || grid[i][j] == '#')
+                    else if (grid[i][j] == 'O')
                     {
                         screen[i-1][j-1].BackColor = System.Drawing.Color.Green;
+                    }
+                    else if (grid[i][j] == '#')
+                    {
+                        screen[i - 1][j - 1].BackColor = System.Drawing.Color.LimeGreen;
                     }
                     else
                     {
